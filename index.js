@@ -1,8 +1,11 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
+const util = require('util');
 
-inquirer
-    .prompt([
+const writeFileAsync = util.promisify(fs.writeFile);
+
+const promptUser = () => {
+    return inquirer.prompt([
         {
             type: 'input',
             message: 'what is the title of your project?',
@@ -30,8 +33,9 @@ inquirer
         },
         {
             type: 'input',
-            message: 'What type of lisence do you have?',
-            name: 'lisence',  
+            message: 'What type of lisence will you use?',
+            name: 'lisence',
+            choices: ["MIT", "APACHE 2.0", "GPL v3", "BSD 3", "None"]  
         },
         {
             type: 'input',
@@ -42,6 +46,18 @@ inquirer
             type: 'input',
             message: 'What commands are used to run a test?',
             name: 'tests',  
-        },
-        
+        },  
     ])
+};  
+
+const generateReadMe = (answers) =>
+``;
+
+const init = () => {
+    promptUser ()
+        .then((answers) => writeFileAsync('README.md', generateReadMe(answers)))
+        .then(() => console.log('Successuly wrote to ReadMe'))
+        .catch((err) => console.error(err));
+};
+
+init();
