@@ -32,7 +32,7 @@ const promptUser = () => {
             name: 'usage',  
         },
         {
-            type: 'input',
+            type: 'list',
             message: 'What type of lisence will you use?',
             name: 'lisence',
             choices: ["MIT", "APACHE 2.0", "GPL v3", "BSD 3", "None"]  
@@ -49,9 +49,20 @@ const promptUser = () => {
         },  
     ])
 };  
-
-const generateReadMe = (answers) =>
-``;
+function renderLicenseBadge(license) {
+    if (license === "MIT") {
+        return `![MIT](https://img.shields.io/badge/License%20-MIT-brightgreen)`
+    }
+    else if (license === "APACHE 2.0") {
+        return `![APACHE 2.0] ()`
+    }
+}
+function renderLicenseLink(license) {}
+function renderLicenseSection(license) {}
+const generateReadMe = (answers) => {
+return `# Project Name: ${answers.title}
+## Description 
+${answers.description}`};
 
 const init = () => {
     promptUser ()
